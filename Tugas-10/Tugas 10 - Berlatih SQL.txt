@@ -1,0 +1,231 @@
+(1.)
+
+mysql> show databases                                                    
+    -> ;                                                                 
++--------------------+                                                   
+| Database           |                                                   
++--------------------+                                                   
+| information_schema |                                                   
+| mysql              |                                                   
+| performance_schema |                                                   
+| sys                |                                                   
++--------------------+                                                   
+4 rows in set (0.01 sec)                                                 
+                                                                         
+mysql> create database myshop;                                           
+Query OK, 1 row affected (0.00 sec)                                      
+   
+mysql> show databases                                                    
+    -> ;                                                                 
++--------------------+                                                   
+| Database           |                                                   
++--------------------+                                                   
+| information_schema |                                                   
+| myshop             |                                                   
+| mysql              |                                                   
+| performance_schema |                                                   
+| sys                |                                                   
++--------------------+                                                   
+5 rows in set (0.00 sec)
+
+(2.) 
+
+mysql> use myshop;
+Database changed
+mysql> create table users(
+    -> id int primary key auto_increment
+    -> , name varchar(255),
+    -> email varchar(255),
+    -> password varchar(255)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> describe users
+    -> ;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int          | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(255) | YES  |     | NULL    |                |
+| email    | varchar(255) | YES  |     | NULL    |                |
+| password | varchar(255) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> create table categories(                                      
+    -> id int primary key auto_increment,                            
+    -> name varchar(255)                                             
+    -> );                                                            
+Query OK, 0 rows affected (0.01 sec)                                 
+                                                                     
+mysql> desc categories;                                              
++-------+--------------+------+-----+---------+----------------+     
+| Field | Type         | Null | Key | Default | Extra          |     
++-------+--------------+------+-----+---------+----------------+     
+| id    | int          | NO   | PRI | NULL    | auto_increment |     
+| name  | varchar(255) | YES  |     | NULL    |                |     
++-------+--------------+------+-----+---------+----------------+     
+2 rows in set (0.00 sec)                                             
+
+mysql> create table items(
+    -> id int primary key auto_increment,
+    -> name varchar(255),
+    -> description varchar(255),
+    -> price int,
+    -> stock int,
+    -> category_id int,
+    -> FOREIGN KEY (category_id) REFERENCES categories (id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc items
+    -> ;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int          | NO   | PRI | NULL    | auto_increment |
+| name        | varchar(255) | YES  |     | NULL    |                |
+| description | varchar(255) | YES  |     | NULL    |                |
+| price       | int          | YES  |     | NULL    |                |
+| stock       | int          | YES  |     | NULL    |                |
+| category_id | int          | YES  | MUL | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+
+(3.) 
+
+mysql> insert ignore into users (name, email, password)
+    -> value("John Doe", "john@doe.com", "john123"),
+    -> ("Jane Doe","jane@doe.com","jenita123")
+    -> ;
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from users;
++----+----------+--------------+-----------+
+| id | name     | email        | password  |
++----+----------+--------------+-----------+
+|  1 | John Doe | john@doe.com | john123   |
+|  2 | Jane Doe | jane@doe.com | jenita123 |
++----+----------+--------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into categories(name)
+    -> value ("gadget");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from categories;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | gadget |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> insert ignore into categories(name)
+    -> value("cloth"),
+    -> ("men"),
+    -> ("women"),
+    -> ("branded");
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from categories;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | gadget  |
+|  2 | cloth   |
+|  3 | men     |
+|  4 | women   |
+|  5 | branded |
++----+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert ignore into items(name,description,price,stock,category_id)
+    -> value("Sumsang b50","hape keren dari merek sumsang",4000000,100,1),
+    -> ("Uniklooh","baju keren dari brand ternama",500000,50,2),
+    -> ("IMHO Watch","jam tangan anak yang jujur banget",2000000,10,1);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from items;
++----+-------------+-----------------------------------+---------+-------+-------------+
+| id | name        | description                       | price   | stock | category_id |
++----+-------------+-----------------------------------+---------+-------+-------------+
+|  1 | Sumsang b50 | hape keren dari merek sumsang     | 4000000 |   100 |           1 |
+|  2 | Uniklooh    | baju keren dari brand ternama     |  500000 |    50 |           2 |
+|  3 | IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 |
++----+-------------+-----------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+(4.)
+
+a.
+
+mysql> select id,name,email from users;
++----+----------+--------------+
+| id | name     | email        |
++----+----------+--------------+
+|  1 | John Doe | john@doe.com |
+|  2 | Jane Doe | jane@doe.com |
++----+----------+--------------+
+2 rows in set (0.00 sec)
+
+b.
+
+mysql> select * from items where price >= 1000000;
++----+-------------+-----------------------------------+---------+-------+-------------+
+| id | name        | description                       | price   | stock | category_id |
++----+-------------+-----------------------------------+---------+-------+-------------+
+|  1 | Sumsang b50 | hape keren dari merek sumsang     | 4000000 |   100 |           1 |
+|  3 | IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 |
++----+-------------+-----------------------------------+---------+-------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from items WHERE name LIKE '%uniklo%' OR name LIKE '%watch%' OR name LIKE '%sang%';
++----+-------------+-----------------------------------+---------+-------+-------------+
+| id | name        | description                       | price   | stock | category_id |
++----+-------------+-----------------------------------+---------+-------+-------------+
+|  1 | Sumsang b50 | hape keren dari merek sumsang     | 4000000 |   100 |           1 |
+|  2 | Uniklooh    | baju keren dari brand ternama     |  500000 |    50 |           2 |
+|  3 | IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 |
++----+-------------+-----------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+c.
+
+mysql> select items.*, categories.*
+    -> from items
+    -> inner join categories
+    -> on items.category_id = categories.id
+    -> ;
++----+-------------+-----------------------------------+---------+-------+-------------+----+--------+
+| id | name        | description                       | price   | stock | category_id | id | name   |
++----+-------------+-----------------------------------+---------+-------+-------------+----+--------+
+|  1 | Sumsang b50 | hape keren dari merek sumsang     | 4000000 |   100 |           1 |  1 | gadget |
+|  2 | Uniklooh    | baju keren dari brand ternama     |  500000 |    50 |           2 |  2 | cloth  |
+|  3 | IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 |  1 | gadget |
++----+-------------+-----------------------------------+---------+-------+-------------+----+--------+
+3 rows in set (0.00 sec)
+
+(5.)
+
+mysql> update items
+    -> set price = 2500000 where name = "Sumsang b50";
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from items;
++----+-------------+-----------------------------------+---------+-------+-------------+
+| id | name        | description                       | price   | stock | category_id |
++----+-------------+-----------------------------------+---------+-------+-------------+
+|  1 | Sumsang b50 | hape keren dari merek sumsang     | 2500000 |   100 |           1 |
+|  2 | Uniklooh    | baju keren dari brand ternama     |  500000 |    50 |           2 |
+|  3 | IMHO Watch  | jam tangan anak yang jujur banget | 2000000 |    10 |           1 |
++----+-------------+-----------------------------------+---------+-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
