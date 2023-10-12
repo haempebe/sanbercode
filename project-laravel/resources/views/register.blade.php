@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>form</title>
-</head>
-<body>
+@section('pageTitle', 'register')
+@extends('layout.app')
+@section('content')
     <h1>Buat Account Baru!</h1>
     <h2>Sign Up Form</h2>
     <form action="">
@@ -34,7 +29,6 @@
         <label for="lang3">Other</label><br><br>
         <label for="bio">Bio:</label><br><br>
         <textarea name="bio" id="bio" cols="30" rows="10"></textarea><br>
-        <button type="submit"><a href="{{route('welcome')}}">Sign Up</a></button>
+        <button type="submit"><a href="{{ route('welcome') }}">Sign Up</a></button>
     </form>
-</body>
-</html>
+@endsection
