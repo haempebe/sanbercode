@@ -17,7 +17,9 @@ use App\Http\Controllers\HomeController;
 
 route::get('/', [HomeController::class, 'home'])->name('home');
 route::get('/signup', [AuthController::class, 'signup'])->name('signup');
-route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
+route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 Route::get('/table', function () {
     return view('table');
 })->name('table');
