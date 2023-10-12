@@ -181,7 +181,7 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -190,7 +190,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link {{ request()->routeIs('table') ? 'active' : '' }} {{ request()->routeIs('data-tables') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             Tables

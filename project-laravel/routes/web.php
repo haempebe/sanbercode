@@ -18,3 +18,10 @@ use App\Http\Controllers\HomeController;
 route::get('/', [HomeController::class, 'home'])->name('home');
 route::get('/signup', [AuthController::class, 'signup'])->name('signup');
 route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
+Route::get('/table', function () {
+    return view('table');
+})->name('table');
+Route::get('/data-tables', function () {
+    return view('dataTables');
+})->name('data-tables');
+
