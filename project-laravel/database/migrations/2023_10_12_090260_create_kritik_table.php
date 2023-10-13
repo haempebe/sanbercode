@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('film_id')->references('id')->on('film')->onDelete('cascade')->onUpdate('cascade');
             $table->string('content');
             $table->integer('point');
+            $table->timestamps();
         });
     }
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('poster');
             $table->unsignedBigInteger('genre_id');
             $table->foreign('genre_id')->references('id')->on('genre')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 

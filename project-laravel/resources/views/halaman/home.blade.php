@@ -13,7 +13,7 @@
     <h2>Cara Bergabung ke SanberBook</h2>
     <ul style="list-style-type: number;">
         <li>Mengunjungi Website ini</li>
-        <li>Mendaftar di <a href="{{ route('signup') }}">Form Sign Up</a></li>
+        <li>Mendaftar di <a href="{{route('signup')}}">Form Sign Up</a></li>
         <li>Selesai!</li>
     </ul>
 @endsection

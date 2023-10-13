@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->integer('umur');
-            $table->string('bio');
+            $table->text('bio');
+            $table->timestamps();
         });
     }
 
